@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class FruitSpawnerScript : MonoBehaviour
 {
@@ -7,17 +8,24 @@ public class FruitSpawnerScript : MonoBehaviour
     public float sabitZ = 2f;
     void Start()
     {
-        
+        StartCoroutine(SpawnFruit());
     }
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+    }
+
+    IEnumerator SpawnFruit()
+    {
+        while (true)
         {
             int randomFruit = Random.Range(0, fruits.Length);
-            Vector3 spawnPos = new Vector3(Random.Range(-7.5f, 7.5f), sabitY, sabitZ);
+            Vector3 spawnPos = new Vector3(Random.Range(-7f, 7f), sabitY, sabitZ);
             
             Instantiate(fruits[randomFruit], spawnPos, Quaternion.identity);
+            
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }
